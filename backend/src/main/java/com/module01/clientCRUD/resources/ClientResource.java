@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.module01.clientCRUD.entities.Client;
+import com.module01.clientCRUD.dto.ClientDTO;
 import com.module01.clientCRUD.servicies.ClientService;
 
 @RestController
@@ -22,7 +22,7 @@ public class ClientResource {
 	private ClientService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<Client>> findAll(
+	public ResponseEntity<Page<ClientDTO>> findAll(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "DESC") String direction,
@@ -30,13 +30,13 @@ public class ClientResource {
 			) {
 				
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		Page<Client> result = service.findAllPaged(pageRequest);
+		Page<ClientDTO> result = service.findAllPaged(pageRequest);
 		return ResponseEntity.ok().body(result);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Client> findById(@PathVariable Long id){
-		Client idDTO = service.findById(id);
+	public ResponseEntity<ClientDTO> findById(@PathVariable Long id){
+		ClientDTO idDTO = service.findById(id);
 		return ResponseEntity.ok().body(idDTO);
 	}
 }
