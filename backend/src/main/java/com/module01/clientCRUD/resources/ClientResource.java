@@ -15,7 +15,7 @@ import com.module01.clientCRUD.dto.ClientDTO;
 import com.module01.clientCRUD.servicies.ClientService;
 
 @RestController
-@RequestMapping(value = "/Clients")
+@RequestMapping(value = "/clients")
 public class ClientResource {
 	
 	@Autowired
