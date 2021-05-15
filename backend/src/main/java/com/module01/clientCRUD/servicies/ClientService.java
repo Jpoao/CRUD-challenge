@@ -2,6 +2,8 @@ package com.module01.clientCRUD.servicies;
 
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,4 +34,39 @@ public class ClientService {
 		Client entity = obj.orElseThrow(() -> new EntityNotFoundExpetions("Sorry id: " + id + " does not exist.. entity not found"));
 		return new ClientDTO(entity);
 		}
+	
+	@Transactional
+	public ClientDTO insert(ClientDTO created) {
+			Client client = new Client();
+			client.setBirthDate(created.getBirthDate());
+			client.setChildren(created.getChildren());
+			client.setCpf(created.getCpf());
+			client.setIncome(created.getIncome());
+			client.setName(created.getName());
+			client = repository.save(client);
+			return new ClientDTO(client);
+	}
+
+	@Transactional
+	public ClientDTO update(Long id, ClientDTO updated) {
+		try {
+			Client client = repository.getOne(id);
+			client.setBirthDate(updated.getBirthDate());
+			client.setChildren(updated.getChildren());
+			client.setCpf(updated.getCpf());
+			client.setIncome(updated.getIncome());
+			client.setName(updated.getName());
+			client = repository.save(client);
+			return new ClientDTO(client);
+		} catch (EntityNotFoundException e) {
+			throw new EntityNotFoundExpetions("Client id: " + id + " not found");
+		}
+	}
+	
+	@Transactional
+	public void delete(Long id) {
+			Client client = repository.getOne(id);
+			findById(id);//ID existe?
+			repository.delete(client);
+	}
 }

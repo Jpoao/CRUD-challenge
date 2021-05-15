@@ -29,7 +29,7 @@ public class ExeptionsHandler implements Serializable {
 		return ResponseEntity.status(status).body(err);
 	}
 	
-	@ExceptionHandler(DataBaseExpetion.class)
+	/*@ExceptionHandler(DataBaseExpetion.class)
 	public ResponseEntity<StandardError> dataBase(DataBaseExpetion e, HttpServletRequest request){
 		StandardError err = new StandardError();
 		HttpStatus status = HttpStatus.BAD_REQUEST;
@@ -39,6 +39,6 @@ public class ExeptionsHandler implements Serializable {
 		err.setPath(request.getRequestURI());
 		err.setStatus(status.value());
 		return ResponseEntity.status(status).body(err);
-	}
+	}*/
 	
 }
