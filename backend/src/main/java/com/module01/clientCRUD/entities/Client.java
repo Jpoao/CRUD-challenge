@@ -17,7 +17,7 @@ public class Client {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	//@Column(unique = true)
+	@Column(unique = true)
 	private String cpf;
 	private Double income;
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")

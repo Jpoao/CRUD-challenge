@@ -1,10 +1,11 @@
-package com.module01.clientCRUD.servicies;
+package com.module01.clientCRUD.services;
 
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -65,8 +66,10 @@ public class ClientService {
 	
 	@Transactional
 	public void delete(Long id) {
-			Client client = repository.getOne(id);
-			findById(id);//ID existe?
-			repository.delete(client);
+		try {
+			repository.deleteById(id);
+		}catch(EmptyResultDataAccessException e) {
+			throw new EntityNotFoundExpetions("sorry id: " + id + " not found");
+		}
 	}
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.module01.clientCRUD.dto.ClientDTO;
-import com.module01.clientCRUD.servicies.ClientService;
+import com.module01.clientCRUD.services.ClientService;
 
 @RestController
 @RequestMapping(value = "/clients")
