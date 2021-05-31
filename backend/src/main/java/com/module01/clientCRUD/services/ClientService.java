@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.module01.clientCRUD.dto.ClientDTO;
 import com.module01.clientCRUD.entities.Client;
 import com.module01.clientCRUD.repositories.ClientRepository;
-import com.module01.clientCRUD.servicies.expetions.EntityNotFoundExpetions;
+import com.module01.clientCRUD.services.exceptions.EntityNotFoundExceptions;
 
 @Service
 public class ClientService {
@@ -32,7 +32,7 @@ public class ClientService {
 	@Transactional(readOnly = true)
 	public ClientDTO findById(Long id){
 		Optional<Client> obj = repository.findById(id);
-		Client entity = obj.orElseThrow(() -> new EntityNotFoundExpetions("Sorry id: " + id + " does not exist.. entity not found"));
+		Client entity = obj.orElseThrow(() -> new EntityNotFoundExceptions("Sorry id: " + id + " does not exist.. entity not found"));
 		return new ClientDTO(entity);
 		}
 	
@@ -60,7 +60,7 @@ public class ClientService {
 			client = repository.save(client);
 			return new ClientDTO(client);
 		} catch (EntityNotFoundException e) {
-			throw new EntityNotFoundExpetions("Client id: " + id + " not found");
+			throw new EntityNotFoundExceptions("Client id: " + id + " not found");
 		}
 	}
 	
@@ -69,7 +69,7 @@ public class ClientService {
 		try {
 			repository.deleteById(id);
 		}catch(EmptyResultDataAccessException e) {
-			throw new EntityNotFoundExpetions("sorry id: " + id + " not found");
+			throw new EntityNotFoundExceptions("sorry id: " + id + " not found");
 		}
 	}
 }

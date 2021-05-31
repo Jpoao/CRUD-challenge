@@ -1,4 +1,4 @@
-package com.module01.clientCRUD.resources.expetions;
+package com.module01.clientCRUD.resources.exceptions;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -10,15 +10,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.module01.clientCRUD.servicies.expetions.DataBaseExpetion;
-import com.module01.clientCRUD.servicies.expetions.EntityNotFoundExpetions;
+import com.module01.clientCRUD.services.exceptions.DataBaseException;
+import com.module01.clientCRUD.services.exceptions.EntityNotFoundExceptions;
+//import com.module01.clientCRUD.services.exceptions.DataBaseExpetion;
 
 @RestControllerAdvice
-public class ExeptionsHandler implements Serializable {
+public class ExceptionsHandler implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@ExceptionHandler(EntityNotFoundExpetions.class)
-	public ResponseEntity<StandardError> entityNotFound(EntityNotFoundExpetions e, HttpServletRequest request){
+	@ExceptionHandler(EntityNotFoundExceptions.class)
+	public ResponseEntity<StandardError> entityNotFound(EntityNotFoundExceptions e, HttpServletRequest request){
 		StandardError err = new StandardError();
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		err.setError("Request not found");
@@ -29,16 +30,16 @@ public class ExeptionsHandler implements Serializable {
 		return ResponseEntity.status(status).body(err);
 	}
 	
-	/*@ExceptionHandler(DataBaseExpetion.class)
-	public ResponseEntity<StandardError> dataBase(DataBaseExpetion e, HttpServletRequest request){
+	@ExceptionHandler(DataBaseException.class)
+	public ResponseEntity<StandardError> dataBase(DataBaseException e, HttpServletRequest request){
 		StandardError err = new StandardError();
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		err.setError("DataBase Expetion");
+		err.setError("DataBase Exception");
 		err.setMsg(e.getMessage());
 		err.setTimestamp(Instant.now());
 		err.setPath(request.getRequestURI());
 		err.setStatus(status.value());
 		return ResponseEntity.status(status).body(err);
-	}*/
+	}
 	
 }
