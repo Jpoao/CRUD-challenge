@@ -1,4 +1,4 @@
-package com.module01.clientCRUD.servicies.expetions;
+package com.module01.clientCRUD.services.expetions;
 
 public class EntityNotFoundExpetions extends RuntimeException{
 		
